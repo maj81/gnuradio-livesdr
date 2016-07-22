@@ -8,9 +8,10 @@ cd $SCRIPT_BINDDIR
 # Install linux-tools package names as approprite
 if [ "${CONFIG_UBUNTU_RELEASE_TRUSTY-x}" = "y" ] ; then
     SRCFILE=custom/linux-tools/linux-tools-trusty
-else if [ "${CONFIG_UBUNTU_RELEASE_WILY-x}" = "y" ] ; then
+elif [ "${CONFIG_UBUNTU_RELEASE_WILY-x}" = "y" ] ; then
     SRCFILE=custom/linux-tools/linux-tools-wily
-     fi
+elif [ "${CONFIG_UBUNTU_RELEASE_XENIAL-x}" = "y" ] ; then
+    SRCFILE=custom/linux-tools/linux-tools-xenial
 fi
 
 DSTFILE=config/install-pkgs.d/linux-tools

@@ -13,14 +13,16 @@ if [ "${CONFIG_USE_CCACHE-x}" = "y" ] ; then
     $SUDO rmdir $ROOTFSMNT_RW/root/.ccache
 fi
 
-# Undo live script mount
-$SUDO $UMOUNT -l $ROOTFSMNT_RW/root/live
-$SUDO rm -rf $ROOTFSMNT_RW/root/live
-
 # Undo chroot mounts
-$SUDO $UMOUNT -l $ROOTFSMNT_RW/dev/pts
-$SUDO $UMOUNT -l $ROOTFSMNT_RW/sys
-$SUDO $UMOUNT -l $ROOTFSMNT_RW/proc
-$SUDO $UMOUNT -l $ROOTFSMNT_RW/dev
+$SUDO $UMOUNT $ROOTFSMNT_RW/dev/pts
+$SUDO $UMOUNT $ROOTFSMNT_RW/sys
+$SUDO $UMOUNT $ROOTFSMNT_RW/proc
+$SUDO $UMOUNT $ROOTFSMNT_RW/dev
+
+# Undo live script mount
+$SUDO $UMOUNT -l $ROOTFSMNT_RW/root/live || die failed to unmount live
+bin/mount-iso
+bin/mount-rootfs
+$SUDO rm -rf $ROOTFSMNT_RW/root/live
 
 exit 0
